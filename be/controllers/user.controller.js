@@ -1,18 +1,14 @@
 const UserService = require('../services/user.service');
 
 exports.getUsers = async (req, res, next) => {
-  const page = req.query.page ? req.query.page : 1;
-  const limit = req.query.limit ? req.query.limit : 100;
-
   try {
-    const users = await UserService.getUsers({}, page, limit);
+    const users = await UserService.getUsers();
 
     return res
       .status(200)
       .json({
         status: 200,
-        data: users,
-        message: "Users successfully retrieved"
+        data: users
       });
   } catch (error) {
     return res

@@ -1,14 +1,9 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcrypt');
 
-exports.getUsers = async (query, page, limit) => {
-  const options = {
-    page,
-    limit
-  };
-
+exports.getUsers = async () => {
   try {
-    return await User.paginate(query, options);
+    return await User.find({});
   } catch (error) {
     throw Error('Could not get users');
   }
@@ -37,4 +32,8 @@ exports.authUser = async (username, password) => {
   } catch (err) {
     throw err;
   }
+};
+
+exports.getUserById = async (userId) => {
+  return await User.findById(userId);
 };

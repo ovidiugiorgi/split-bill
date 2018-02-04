@@ -17,14 +17,19 @@ export class LoginService {
     return this._http.post(this.baseURL_ + '/register', {
       username,
       password
-    });
+    }, {withCredentials: true})
+      .pipe(
+        tap(result => {
+          this.isLoggedIn = result ? result['status'] === 200 : false;
+        })
+      );
   }
 
   login(username: string, password: string) {
     return this._http.post(this.baseURL_ + '/login', {
       username,
       password
-    })
+    }, {withCredentials: true})
       .pipe(
         tap(result => {
           this.isLoggedIn = result ? result['status'] === 200 : false;

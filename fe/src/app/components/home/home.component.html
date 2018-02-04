@@ -1,0 +1,14 @@
+<h1>Create a bill</h1>
+<form>
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" name="title" class="form-control" [(ngModel)]="title" required>
+  </div>
+
+  <button class="btn btn-primary" (click)="onBillCreate()">Create Bill</button>
+</form>
+
+<h1>Your bills</h1>
+<ul *ngFor="let bill of bills">
+  <li>{{bill.title}}</li>
+</ul>
