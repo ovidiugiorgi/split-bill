@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class LoginService {
@@ -33,6 +33,18 @@ export class LoginService {
       .pipe(
         tap(result => {
           this.isLoggedIn = result ? result['status'] === 200 : false;
+        })
+      );
+  }
+
+  validateCookie() {
+    return this._http.post(this.baseURL_ + '/login', {}, {withCredentials: true})
+      .pipe(
+        map(result => result['data']),
+        tap(result => {
+          if (result) {
+            this.isLoggedIn = true;
+          }
         })
       );
   }

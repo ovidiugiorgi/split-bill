@@ -49,8 +49,32 @@ exports.createUser = async (req, res, next) => {
 };
 
 exports.authUser = async (req, res, next) => {
+  const {username, password} = req.body;
+
+  if (!username && !password) {
+    const user = await UserService.getUserById(req.session.userId);
+
+    if (user) {
+      return res
+        .status(200)
+        .json({
+          status: 200,
+          data: true,
+          message: "Login was successful"
+        });
+    } else {
+      return res
+        .status(200)
+        .json({
+          status: 200,
+          data: false,
+          message: "Login was unsuccessful"
+        })
+    }
+  }
+
   try {
-    const authUser = await UserService.authUser(req.body.username, req.body.password);
+    const authUser = await UserService.authUser(username, password);
 
     if (authUser) {
       req.session.userId = authUser._id;
