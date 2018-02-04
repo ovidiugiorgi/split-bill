@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { BillService } from './services/bill.service';
 import { LoginGuard } from './guards/login.guard';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { LoginGuard } from './guards/login.guard';
     ]),
     NgbModule.forRoot()
   ],
-  providers: [LoginService, LoginGuard, BillService],
+  providers: [LoginService, LoginGuard, BillService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

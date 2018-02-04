@@ -7,6 +7,7 @@ import { map, tap } from 'rxjs/operators';
 export class LoginService {
 
   isLoggedIn = false;
+  username = '';
 
   private baseURL_ = environment.baseEndpoint;
 
@@ -19,8 +20,12 @@ export class LoginService {
       password
     }, {withCredentials: true})
       .pipe(
+        map(result => result['data']),
         tap(result => {
-          this.isLoggedIn = result ? result['status'] === 200 : false;
+          if (result) {
+            this.isLoggedIn = true;
+            this.username = result;
+          }
         })
       );
   }
@@ -31,8 +36,12 @@ export class LoginService {
       password
     }, {withCredentials: true})
       .pipe(
+        map(result => result['data']),
         tap(result => {
-          this.isLoggedIn = result ? result['status'] === 200 : false;
+          if (result) {
+            this.isLoggedIn = true;
+            this.username = result;
+          }
         })
       );
   }
@@ -44,8 +53,10 @@ export class LoginService {
         tap(result => {
           if (result) {
             this.isLoggedIn = true;
+            this.username = result;
           }
-        })
+        }),
+        map(result => !!result)
       );
   }
 

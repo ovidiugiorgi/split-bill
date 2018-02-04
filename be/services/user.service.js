@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 exports.getUsers = async () => {
   try {
-    return await User.find({});
+    return await User.find({}, {username: 1, _id: 0});
   } catch (error) {
     throw Error('Could not get users');
   }
@@ -36,4 +36,8 @@ exports.authUser = async (username, password) => {
 
 exports.getUserById = async (userId) => {
   return await User.findById(userId);
+};
+
+exports.getUserByUserName = async (username) => {
+  return await User.findOne({'username': username})
 };

@@ -6,9 +6,30 @@ const BillSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  ownerId: {
-    type: String,
+  value: {
+    type: Number,
     required: true
+  },
+  owner: {
+    username: {
+      type: String,
+      required: true
+    },
+    billPercent: {
+      type: Number
+    },
+    amountPaid: {
+      type: Number
+    }
+  },
+  friend: {
+    username: {
+      type: String,
+      required: true
+    },
+    amountPaid: {
+      type: Number
+    }
   }
 });
 

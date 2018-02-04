@@ -6,7 +6,7 @@ exports.getBills = async (req, res, next) => {
 
   if (authUser) {
     try {
-      const bills = await BillService.getBills(authUser._id);
+      const bills = await BillService.getBills(authUser.username);
 
       return res
         .status(200)
@@ -37,7 +37,17 @@ exports.createBill = async (req, res, next) => {
 
   if (authUser) {
     try {
-      const createdBill = await BillService.createBill(req.body.title, authUser._id);
+      const bill = {
+        title: req.body.title,
+        value: req.body.value,
+        owner: {
+          username: authUser.username
+        },
+        friend: {
+          username: req.body.friendUsername
+        }
+      };
+      const createdBill = await BillService.createBill(bill, authUser._id);
 
       return res
         .status(200)

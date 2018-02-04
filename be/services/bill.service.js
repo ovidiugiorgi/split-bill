@@ -1,17 +1,23 @@
 const Bill = require('../models/bill.model');
 
-exports.getBills = async (ownerId) => {
+exports.getBills = async (ownerUsername) => {
   try {
-    return await Bill.find({'ownerId': ownerId});
+    return await Bill.find({$or: [{'owner.username': ownerUsername}, {'friend.username': ownerUsername}]}, {__v: 0});
   } catch (error) {
     throw Error('Could not get bills');
   }
 };
 
-exports.createBill = async (title, ownerId) => {
+exports.createBill = async (bill) => {
   const newBill = new Bill({
-    title,
-    ownerId
+    title: bill.title,
+    value: bill.value,
+    owner: {
+      username: bill.owner.username
+    },
+    friend: {
+      username: bill.friend.username
+    }
   });
 
   try {

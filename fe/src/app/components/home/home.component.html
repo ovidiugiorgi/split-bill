@@ -1,14 +1,26 @@
-<h1>Create a bill</h1>
+<h1>Welcome, {{username}}!</h1>
+
+<h2>Create a new bill</h2>
 <form>
   <div class="form-group">
-    <label>Title</label>
-    <input type="text" name="title" class="form-control" [(ngModel)]="title" required>
+    <label for="title">Bill title</label>
+    <input type="text" id="title" name="title" class="form-control" [(ngModel)]="title" required>
+  </div>
+  <div class="form-group">
+    <label for="value">Bill value (moneys)</label>
+    <input type="text" id="value" name="value" class="form-control" [(ngModel)]="value" required>
+  </div>
+  <div class="form-group">
+    <label for="power">Choose a friend you want to split the bill with: </label>
+    <select class="form-control" id="power" name="power" [(ngModel)]="selectedFriend" required>
+      <option *ngFor="let user of users" [value]="user.username">{{user.username}}</option>
+    </select>
   </div>
 
   <button class="btn btn-primary" (click)="onBillCreate()">Create Bill</button>
 </form>
 
-<h1>Your bills</h1>
+<h2>Your bills</h2>
 <ul *ngFor="let bill of bills">
   <li>{{bill.title}}</li>
 </ul>

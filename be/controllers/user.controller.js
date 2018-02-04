@@ -35,7 +35,7 @@ exports.createUser = async (req, res, next) => {
       .status(200)
       .json({
         status: 200,
-        data: user,
+        data: createdUser.username,
         message: "User successfully created"
       })
   } catch (error) {
@@ -59,7 +59,7 @@ exports.authUser = async (req, res, next) => {
         .status(200)
         .json({
           status: 200,
-          data: true,
+          data: user.username,
           message: "Login was successful"
         });
     } else {
@@ -83,7 +83,7 @@ exports.authUser = async (req, res, next) => {
         .status(200)
         .json({
           status: 200,
-          data: authUser,
+          data: authUser.username,
           message: "Login was successful"
         });
     } else {
