@@ -18,10 +18,11 @@ export class BillService {
       );
   }
 
-  createBill(title: string, value: number, username: string) {
+  createBill(title: string, value: number, percent: number, username: string) {
     return this._http.post(this.baseURL_, {
       title,
       value,
+      percent,
       friendUsername: username
     }, {withCredentials: true})
       .pipe(

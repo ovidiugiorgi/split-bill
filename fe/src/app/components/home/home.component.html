@@ -11,16 +11,20 @@
     <input type="text" id="value" name="value" class="form-control" [(ngModel)]="value" required>
   </div>
   <div class="form-group">
-    <label for="power">Choose a friend you want to split the bill with: </label>
-    <select class="form-control" id="power" name="power" [(ngModel)]="selectedFriend" required>
+    <label for="friend">Choose a friend you want to split the bill with: </label>
+    <select class="form-control" id="friend" name="friend" [(ngModel)]="selectedFriend" required>
       <option *ngFor="let user of users" [value]="user.username">{{user.username}}</option>
     </select>
   </div>
+  <div class="form-group">
+    <label>Choose a friend you want to split the bill with: </label>
+    <mat-slider [min]="1" [max]="100" [thumbLabel]="true" name="percent" [(ngModel)]="percent"></mat-slider>
+  </div>
 
-  <button class="btn btn-primary" (click)="onBillCreate()">Create Bill</button>
+  <button mat-raised-button color="primary" (click)="onBillCreate()">Create Bill</button>
 </form>
 
 <h2>Your bills</h2>
-<ul *ngFor="let bill of bills">
-  <li>{{bill.title}}</li>
-</ul>
+<div *ngFor="let bill of bills">
+  <app-bill-item [bill]="bill"></app-bill-item>
+</div>

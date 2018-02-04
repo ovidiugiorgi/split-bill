@@ -41,10 +41,13 @@ exports.createBill = async (req, res, next) => {
         title: req.body.title,
         value: req.body.value,
         owner: {
-          username: authUser.username
+          username: authUser.username,
+          billPercent: req.body.percent || 50,
+          amountPaid: 0
         },
         friend: {
-          username: req.body.friendUsername
+          username: req.body.friendUsername,
+          amountPaid: 0
         }
       };
       const createdBill = await BillService.createBill(bill, authUser._id);

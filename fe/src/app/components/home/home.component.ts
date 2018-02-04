@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   value = '';
   title = '';
   selectedFriend: string;
+  percent = 50;
 
   constructor(private _billService: BillService,
               private _loginSerivce: LoginService,
@@ -43,13 +44,14 @@ export class HomeComponent implements OnInit {
   }
 
   onBillCreate() {
-    this._billService.createBill(this.title, parseInt(this.value, 10), this.selectedFriend)
+    this._billService.createBill(this.title, parseInt(this.value, 10), this.percent, this.selectedFriend)
       .subscribe(result => {
         this.bills = this.bills.concat(result);
 
         this.title = '';
         this.value = '';
         this.selectedFriend = '';
+        this.percent = 50;
       });
   }
 

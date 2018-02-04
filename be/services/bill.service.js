@@ -13,10 +13,13 @@ exports.createBill = async (bill) => {
     title: bill.title,
     value: bill.value,
     owner: {
-      username: bill.owner.username
+      username: bill.owner.username,
+      billPercent: bill.owner.billPercent,
+      amountPaid: bill.owner.amountPaid
     },
     friend: {
-      username: bill.friend.username
+      username: bill.friend.username,
+      amountPaid: bill.friend.amountPaid
     }
   });
 

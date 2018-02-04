@@ -14,6 +14,12 @@ import { HomeComponent } from './components/home/home.component';
 import { BillService } from './services/bill.service';
 import { LoginGuard } from './guards/login.guard';
 import { UserService } from './services/user.service';
+import { BillItemComponent } from './components/bill-item/bill-item.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule, MatCardModule, MatFormFieldModule, MatListModule, MatProgressBarModule,
+  MatSliderModule
+} from '@angular/material';
 
 
 @NgModule({
@@ -21,7 +27,8 @@ import { UserService } from './services/user.service';
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    BillItemComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +40,15 @@ import { UserService } from './services/user.service';
       {path: 'register', component: RegisterComponent},
       {path: '', redirectTo: '/home', pathMatch: 'full'}
     ]),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatListModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatProgressBarModule
   ],
   providers: [LoginService, LoginGuard, BillService, UserService],
   bootstrap: [AppComponent]
