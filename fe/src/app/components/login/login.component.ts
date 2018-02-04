@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
@@ -16,8 +16,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRegister() {
-    this._loginService.register(this.username, this.password)
+  onLogin() {
+    this._loginService.login(this.username, this.password)
       .subscribe(result => {
         if (result) {
           console.log(result);

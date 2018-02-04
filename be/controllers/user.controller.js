@@ -2,7 +2,7 @@ const UserService = require('../services/user.service');
 
 exports.getUsers = async (req, res, next) => {
   const page = req.query.page ? req.query.page : 1;
-  const limit = req.query.limit ? req.query.limit : 10;
+  const limit = req.query.limit ? req.query.limit : 100;
 
   try {
     const users = await UserService.getUsers({}, page, limit);
@@ -33,11 +33,13 @@ exports.createUser = async (req, res, next) => {
   try {
     const createdUser = await UserService.createUser(user);
 
+    req.session.userId = createdUser._id;
+
     return res
       .status(200)
       .json({
         status: 200,
-        data: createdUser,
+        data: user,
         message: "User successfully created"
       })
   } catch (error) {
@@ -45,7 +47,39 @@ exports.createUser = async (req, res, next) => {
       .status(400)
       .json({
         status: 400,
-        message: "User creation was unsuccessful"
+        message: error.message
+      })
+  }
+};
+
+exports.authUser = async (req, res, next) => {
+  try {
+    const authUser = await UserService.authUser(req.body.username, req.body.password);
+
+    if (authUser) {
+      req.session.userId = authUser._id;
+
+      return res
+        .status(200)
+        .json({
+          status: 200,
+          data: authUser,
+          message: "Login was successful"
+        });
+    } else {
+      return res
+        .status(400)
+        .json({
+          status: 400,
+          message: "Login was unsuccessful"
+        })
+    }
+  } catch (error) {
+    return res
+      .status(400)
+      .json({
+        status: 400,
+        message: error.message
       })
   }
 };

@@ -7,13 +7,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
-import { UserService } from './services/user.service';
+import { LoginComponent } from './components/login/login.component';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { UserService } from './services/user.service';
     HttpClientModule,
     NgbModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

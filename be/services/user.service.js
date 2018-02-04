@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const bcrypt = require('bcrypt');
 
 exports.getUsers = async (query, page, limit) => {
   const options = {
@@ -22,6 +23,18 @@ exports.createUser = async (user) => {
   try {
     return await newUser.save();
   } catch (error) {
-    throw Error("Could not create user");
+    throw error;
+  }
+};
+
+exports.authUser = async (username, password) => {
+  try {
+    const user = await User.findOne({'username': username});
+
+    const result = await bcrypt.compare(password, user.password);
+
+    return result ? user : false;
+  } catch (err) {
+    throw err;
   }
 };

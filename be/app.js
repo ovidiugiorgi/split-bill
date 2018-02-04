@@ -8,6 +8,7 @@ const bluebird = require('bluebird');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const winston = require('winston');
+const session = require('express-session');
 
 const index = require('./routes/index');
 const api = require('./routes/api.route');
@@ -28,6 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({origin: true, credentials: true}));
 
+app.use(session({
+  secret: 'split-bill',
+  resave: true,
+  saveUninitialized: false
+}));
+
 app.use('/', index);
 app.use('/api', api);
 
@@ -40,12 +47,6 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  if (req.method === "OPTIONS") {
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
-  } else {
-    res.header('Access-Control-Allow-Origin', '*');
-  }
-
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
